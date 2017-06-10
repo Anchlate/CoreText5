@@ -7,8 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "CTView.h"
+#import "Masonry.h"
+#import "ANMarkupParser.h"
 
 @interface ViewController ()
+
+@property (strong, nonatomic) IBOutlet CTView *myView;
 
 @end
 
@@ -16,8 +21,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    NSString* string = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"test" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
+    ANMarkupParser* mp = [[ANMarkupParser alloc]init];
+    [self.myView setAttString:[mp attrStringFromMark:string]];
+    [self.myView buildFrames];
+    
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
